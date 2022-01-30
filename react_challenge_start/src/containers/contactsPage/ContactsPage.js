@@ -1,83 +1,90 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import { ContactForm } from "../../components/contactForm/ContactForm";
 import { TileList } from "../../components/tileList/TileList";
 
-export function ContactsPage (props) {
+export function ContactsPage(props) {
   /*
   Define state variables for 
   contact info and duplicate check
   */
- const {addContact, contacts}= props
+ const {contacts, addContact}= props
 
  const [name, setName]=useState('')
- const [phoneNumber, setPhoneNumber]= useState('')
+ const [phone, setPhone]= useState('')
  const [email, setEmail]= useState('')
 
  const handleNameChange = (event) =>{
-   setName(event.target.value)
- }
- 
- const handleNumberChange = (event) =>(
-   setPhoneNumber(event.target.value)
- )
+  setName(event.target.value)}
 
- const handleEmailChange = (event) =>(
-  setEmail(event.target.value)
-)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handlePhoneChange = (event) =>{
+  setPhone(event.target.value)}
+
+const handleEmailChange = (event) =>{
+ setEmail(event.target.value)}
+
+
+const handleSubmit = (event) => {
+    event.preventDefault();
     /*
     Add contact info and clear data
     if the contact name is not a duplicate
     */
-   const contact = {
-     name: name, 
-     phoneNumber: phoneNumber, 
-     email: email
-   }
+    const contact= {
+      name: name, 
+      phone: phone, 
+      email: email}
+    
+  if (contact in contacts){
+    window.alert('Contact Already Exists')
+  }
+  else {props.addContact(contact)
 
-   if (contact.name in contacts){
-     window.alert('Contact Already Exists')
-   }
-   else props.addContact(contact)
+    setName('')
+    setPhone('')
+    setEmail('') 
+  }
 
-   setName('')
-   setPhoneNumber('')
-   setEmail('')
+    
+
+    
   };
 
   /*
   Using hooks, check for contact name in the 
   contacts array variable in props
-  */
+  // */
+  useEffect(()=>{
+    if (name in contacts){
+      window.alert('Contact Already Exists')}
+    }, [name])
+  
 
   return (
     <div >
       <section>
         <h2>Add Contact</h2>
-        <form className='ContactsPage' onSubmit={handleSubmit}>
-          <input 
-          type='text'
-          value={name}
-          onChange={handleNameChange}/>
-          <input
-          type='text'
-          value={phoneNumber}
-          onChange={handleNumberChange}/>
-          <input
-          type='text'
-          value={email}
-          onChange={handleEmailChange}/>
-          <input type='submit' value='Add'/> 
-          </form>
+        <ContactForm 
+        onSubmit={handleSubmit} 
+        handleNameChange={handleNameChange} 
+        handlePhoneChange={handlePhoneChange} 
+        handleEmailChange={handleEmailChange}
+        name={name}
+        phone={phone}
+        email={email}
+        />
       </section>
       <hr />
       <section>
         <h2>Contacts</h2>
-        <ul className='thoughts'>
-          {contacts.map((contact)=>
-          (<TileList/>))}
+        <ul className='contacts'>
+          {contacts.map((contact)=>(
+           <TileList 
+           contact={contact}
+           />
+          ))}
         </ul>
+        
       </section>
     </div>
   );

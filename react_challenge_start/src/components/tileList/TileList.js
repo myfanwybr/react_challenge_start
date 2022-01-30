@@ -1,9 +1,14 @@
 import React from "react";
 
-export const TileList = () => {
+
+export function TileList(props) {
+const {contact}= props
+
   return (
-    <div>
-      
-    </div>
+       <li className='Contact'>
+         <div className='name'>
+           {contact.name}
+         </div>
+        </li>
   );
 };
