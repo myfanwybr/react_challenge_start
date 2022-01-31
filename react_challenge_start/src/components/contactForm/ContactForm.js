@@ -15,18 +15,19 @@ export function ContactForm(props) {
   
 
   return (
-    <form className='ContactForm' onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
         <input 
           type='text'
+          placeholder='name'
           value={name}
           onChange={handleNameChange}/>
         <input
-          type='text'
+          type='tel'
           value={phone}
           pattern= "[1-9][0-9]{2}-[1-9][0-9]{2}-[0-9]{4}"
           onChange={handlePhoneChange}/>
          <input
-          type='text'
+          type='email'
           value={email}
           onChange={handleEmailChange}/>
         <input type='submit' value='Add'/> 

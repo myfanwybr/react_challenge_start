@@ -1,14 +1,14 @@
 import React from "react";
+import { Tile } from "../../components/tile/Tile";
+
 
 
 export function TileList(props) {
-const {contact}= props
+const {contacts}= props
 
   return (
-       <li className='Contact'>
-         <div className='name'>
-           {contact.name}
-         </div>
-        </li>
+       <div>
+         <Tile contacts= {contacts}/>
+       </div>
   );
 };

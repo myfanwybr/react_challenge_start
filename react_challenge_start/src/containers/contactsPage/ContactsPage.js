@@ -12,13 +12,21 @@ export function ContactsPage(props) {
  const [name, setName]=useState('')
  const [phone, setPhone]= useState('')
  const [email, setEmail]= useState('')
+ const [duplicate, setDuplicate]= useState(false)
 
  const handleNameChange = (event) =>{
   setName(event.target.value)}
 
+useEffect(()=>{
+    if (contacts.includes(name)){
+      setDuplicate(true)
+    }
+  }, [contacts, name])
+
 
 const handlePhoneChange = (event) =>{
-  setPhone(event.target.value)}
+  setPhone(event.target.value)
+}
 
 const handleEmailChange = (event) =>{
  setEmail(event.target.value)}
@@ -30,35 +38,23 @@ const handleSubmit = (event) => {
     Add contact info and clear data
     if the contact name is not a duplicate
     */
-    const contact= {
-      name: name, 
-      phone: phone, 
-      email: email}
-    
-  if (contact in contacts){
-    window.alert('Contact Already Exists')
-  }
-  else {props.addContact(contact)
+   const contact = {
+     name: name, 
+     phone: phone, 
+     email: email
+   };
 
-    setName('')
-    setPhone('')
-    setEmail('') 
-  }
-
-    
-
-    
-  };
-
+    props.addContact(contact)
+        setName('')
+        setPhone('')
+        setEmail('') 
+      
   /*
   Using hooks, check for contact name in the 
   contacts array variable in props
   // */
-  useEffect(()=>{
-    if (name in contacts){
-      window.alert('Contact Already Exists')}
-    }, [name])
   
+}
 
   return (
     <div >
@@ -77,13 +73,7 @@ const handleSubmit = (event) => {
       <hr />
       <section>
         <h2>Contacts</h2>
-        <ul className='contacts'>
-          {contacts.map((contact)=>(
-           <TileList 
-           contact={contact}
-           />
-          ))}
-        </ul>
+        <TileList contacts={contacts}/>
         
       </section>
     </div>
