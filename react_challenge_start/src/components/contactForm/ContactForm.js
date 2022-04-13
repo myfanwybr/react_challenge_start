@@ -23,14 +23,16 @@ export function ContactForm(props) {
           onChange={handleNameChange}/>
         <input
           type='tel'
+          placeholder='phone'
           value={phone}
           pattern= "[1-9][0-9]{2}-[1-9][0-9]{2}-[0-9]{4}"
           onChange={handlePhoneChange}/>
          <input
           type='email'
+          placeholder='email'
           value={email}
           onChange={handleEmailChange}/>
-        <input type='submit' value='Add'/> 
+        <input type='submit' value='Add Contact'/> 
     </form>
   );
 };

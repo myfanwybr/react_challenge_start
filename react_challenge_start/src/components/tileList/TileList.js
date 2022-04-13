@@ -4,11 +4,14 @@ import { Tile } from "../../components/tile/Tile";
 
 
 export function TileList(props) {
-const {contacts}= props
+const {tiles}= props
 
   return (
        <div>
-         <Tile contacts= {contacts}/>
+         {console.log(tiles)}
+         {tiles.map((tile, index)=>(
+           <Tile key={index} tile= {tile}/>
+         ))}
        </div>
   );
 };

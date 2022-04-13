@@ -1,14 +1,14 @@
 import React from "react";
 
 export function Tile (props) {
-  const {contacts} =props
+  const {tile} =props
   return (
     <div className="tile-container">
-        {contacts.map((contact, i)=>
-           
-           <p key= {i}>{contact}</p>
-          
-           )}
+        {Object.values(tile).map((value, index)=> (
+          <p key={index} className={'${index === 0 ? "tile-title" : ""} tile'}>
+            {value}
+          </p>
+        ))}
     </div>
   );
 };
